@@ -120,7 +120,7 @@ filelabel.pack(pady = 10)
 
 
 photo = PhotoImage(file = 'C:/Users/puni3lv/Downloads/Akash/Python GUI/Haptic_GUI/Snap.png')
-labelphoto = Label(topframe, image = photo, figsize = (6,3))
+labelphoto = Label(topframe, image = photo)
 labelphoto.pack()
 
 #Creating Menubar
