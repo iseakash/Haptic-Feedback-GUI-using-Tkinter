@@ -25,6 +25,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from pandas import DataFrame
 import tkinter.font as font
+from PIL import ImageTk ,Image
 
 def callback(url):
     webbrowser.open_new(url)
@@ -37,7 +38,22 @@ def upload_file():
     global file
     file = pd.read_csv(filepath)
     filelabel['text'] = "Step 2 :- Click on  Open MPP Process Data"
-    #fileload['text'] = os.path.basename(filepath) + " Uploaded"
+    status_bar['text'] = "Uploaded" + ' ' + os.path.basename(filepath)
+
+def upload_file1():
+    global filepath
+    filepath = filedialog.askopenfilename()
+    global file
+    file = pd.read_csv(filepath)
+    filelabel['text'] = "Step 2_1 :- Click on  Open MPP Process Data"
+    status_bar['text'] = "Uploaded" + ' ' + os.path.basename(filepath)
+    
+def upload_file2():
+    global filepath
+    filepath = filedialog.askopenfilename()
+    global file
+    file = pd.read_csv(filepath)
+    filelabel['text'] = "Step 2_2 :- Click on  Open MPP Process Data"
     status_bar['text'] = "Uploaded" + ' ' + os.path.basename(filepath)
 
 def run_algorithm():
@@ -88,7 +104,7 @@ border_effects = {
 
 topframe = Frame(root) #,relief = RAISED, borderwidth = 1
 topframe.pack(pady =10)
-middleframe = Frame(root) #,relief = RAISED, borderwidth = 1
+middleframe = Frame(root, pady = 40) #,relief = RAISED, borderwidth = 1
 middleframe.pack()
 bottomframe = Frame(root, pady = 40) #,relief = RAISED, borderwidth = 1
 bottomframe.pack()
@@ -106,23 +122,24 @@ ax1.set_title('Country Vs. GDP Per Capita')
 linkFont = font.Font(size=20)
 
 #Creating Link
-link = Label(bottomframe, text="Google Hyperlink", fg="blue", cursor="hand2")
+link = Label(bottomframe, text="JDS-D86 Document Link", fg="blue", cursor="hand2")
 link['font'] = linkFont
 link.pack(pady = 50)
-link.bind("<Button-1>", lambda e: callback("http://www.google.com"))
+link.bind("<Button-1>", lambda e: callback("http://share-internal.deere.com/knowledge/EngStds/JDSD/JDS-D86%20.pdf#search=JDS%2086"))
 
 # Creating Text
-text = Label(middleframe, text = "Let's run the program", fg = "green", font = 'Times 14 underline')
+text = Label(topframe, text = "System for Operator Vibration Exposure Prediction", fg = "green", font = 'Times 14 underline')
 text['font'] = linkFont
 text.pack()
-filelabel = Label(middleframe, text = "Step 1 :- Open MPP Process Data ", relief = GROOVE, bg = "white", fg = "green", font = 'bold')
+filelabel = Label(topframe, text = "Step 1 :- Upload MPP Process Data ", relief = GROOVE, bg = "white", fg = "green", font = 'bold')
 filelabel.pack(pady = 10)
 
 
-photo = PhotoImage(file = 'C:/Users/puni3lv/Downloads/Akash/Python GUI/Haptic_GUI/Snap.png')
-labelphoto = Label(topframe, image = photo)
-labelphoto.pack()
-
+# photo = PhotoImage(file = 'C:/Users/puni3lv/Downloads/Akash/Python GUI/Haptic_GUI/Snap.png')
+# labelphoto = Label(topframe, image = photo)
+# labelphoto.pack()
+#photo = PhotoImage(file = r"C:\Users\puni3lv\Downloads\Akash\Python GUI\Haptic_GUI\circle.png")
+#photoimage = photo.subsample(5, 5)
 #Creating Menubar
 menubar = Menu(root)
 root.config(menu = menubar)
@@ -136,30 +153,37 @@ submenu = Menu(menubar, tearoff = 0)
 menubar.add_cascade(label = "Help", menu = submenu)
 submenu.add_command(label = "About Algorithm")
 submenu.add_command(label = "Exit", command = root.destroy)
-
+#####
+#img = ImageTk.PhotoImage(Image.open("C:/Users/puni3lv/Downloads/Akash/Python GUI/Haptic_GUI/circle.jpg"))
+#lab=Label(image=img)
+#lab.pack()
 # define font
-myFont = font.Font(size=13)
+myFont = font.Font(size=11)
 #Creating Buttons
-theButton0 = tki.Button(bottomframe, text="Upload File", width= 20, height= 3, bg="green", fg="yellow", command = upload_file)
-theButton1 = tki.Button(bottomframe, text="Predict Category", width= 20, height= 3, bg="green", fg="yellow", command = run_algorithm)
+theButton0 = tki.Button(middleframe, text="Upload MPP Process Data", width= 20, height= 2, bg="green", fg="yellow", command = upload_file)
+theButton01 = tki.Button(middleframe, text="Upload Shift Hours Data", width= 20, height= 2, bg="green", fg="yellow", command = upload_file1)
+theButton02 = tki.Button(middleframe, text="Upload Daily Rate", width= 20, height= 2, bg="green", fg="yellow", command = upload_file2)
+theButton1 = tki.Button(bottomframe, text="Vibration Calculation", width= 20, height= 3, bg="green", fg="yellow", command = run_algorithm)
 theButton2 = tki.Button(bottomframe, text="Download", width= 20, height= 3, bg="green", fg="yellow", command = download_file)
 # apply font to the button label
 theButton0['font'] = myFont
+theButton01['font'] = myFont
+theButton02['font'] = myFont
 theButton1['font'] = myFont
 theButton2['font'] = myFont
 
-theButton0.pack(side = LEFT, padx = 60)
+theButton0.pack(side = LEFT, padx = 3)
+theButton01.pack(side = LEFT, padx = 2)
+theButton02.pack(side = LEFT, padx = 2)
 theButton1.pack(side = LEFT, padx = 10)
-theButton2.pack(side = RIGHT, padx = 70)
-root.minsize(400, 750)
+theButton2.pack(side = LEFT, padx = 20)
+root.minsize(400, 550)
 
 #Creaing Status Bar
 status_bar = Label(root, text = "Welcome", relief = SUNKEN, anchor = W, font = 'Times 12 italic')
 status_bar.pack(side = BOTTOM, fill = X)
-  
 
 root.mainloop()
-
 
 # Converting .py to .exe
 #Run in conda command window
